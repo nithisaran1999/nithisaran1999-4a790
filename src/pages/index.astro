@@ -1,19 +1,158 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Markdown from '../components/Markdown.astro';
-
-const explainer = `
-An Astro website can go way beyond static pages - on the right platform.
-
-Netlify supports not only [Streaming SSR](https://docs.astro.build/en/guides/server-side-rendering/#html-streaming) and fast [Edge Middleware](https://docs.astro.build/en/guides/middleware/), but also [on-demand revalidation](https://www.netlify.com/blog/cache-tags-and-purge-api-on-netlify/) and [stale-while-revalidate](https://www.netlify.com/blog/swr-and-fine-grained-cache-control/). 
-Any page or data can be rebuilt only when needed, without site visitors ever getting a performance hit.
-`;
 ---
 
-<Layout title="Welcome to Astro.">
-    <h1 class="mb-10">Netlify Platform Starter for Astro</h1>
-    <Markdown content={explainer} class="mb-10 text-lg" />
-    <p>
-        <a href="https://docs.netlify.com/frameworks/astro/" class="btn btn-lg sm:min-w-64">Read the Docs</a>
-    </p>
+<Layout title="Nithisaran | Full Stack Developer">
+    <section class="tui-window">
+        <div class="tui-titlebar">
+            <p class="inline-flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                    <path d="m7 9 3 3-3 3"></path>
+                    <path d="M13 15h4"></path>
+                </svg>
+                portfolio.sh
+            </p>
+            <p class="text-blue-300">
+                <span class="lang-en">status: online</span>
+                <span class="lang-th">สถานะ: ออนไลน์</span>
+            </p>
+        </div>
+
+        <div class="grid gap-4 p-5 sm:p-8">
+            <div class="tui-panel">
+                <div class="grid items-center gap-5 sm:grid-cols-[140px_1fr]">
+                    <img
+                        src="https://gitlab.com/uploads/-/system/user/avatar/11095030/avatar.png"
+                        alt="Profile picture"
+                        width="140"
+                        height="140"
+                        class="w-[110px] h-[110px] sm:w-[140px] sm:h-[140px] rounded-md border border-blue-600/80 bg-blue-950/50"
+                    />
+                    <div>
+                        <p class="mb-2 font-mono text-sm text-blue-300">$ whoami</p>
+                        <h1 class="mb-2 text-blue-50">Nithisaran</h1>
+                        <p class="mb-2 text-blue-300">
+                            <span class="lang-en">Full Stack Developer</span>
+                            <span class="lang-th">นักพัฒนา Full Stack</span>
+                        </p>
+                        <p class="max-w-3xl text-blue-100">
+                            <span class="lang-en">
+                                I am Nithisaran, a Full Stack Developer based in Thailand.
+                                I build reliable web applications from frontend interfaces to backend APIs and deployment pipelines.
+                                My focus is clean architecture, scalable systems, and fast user experiences.
+                            </span>
+                            <span class="lang-th">
+                                ผมชื่อ Nithisaran เป็นนักพัฒนา Full Stack ที่อยู่ในประเทศไทย
+                                ผมพัฒนาเว็บแอปพลิเคชันแบบครบวงจรตั้งแต่ส่วนหน้าไปจนถึง API ฝั่งเซิร์ฟเวอร์และระบบ deploy
+                                โดยเน้นโครงสร้างที่ดี ขยายระบบได้ และประสบการณ์ใช้งานที่รวดเร็ว
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="about" class="tui-panel">
+                <p class="mb-2 font-mono text-sm text-blue-300">$ cat about.txt</p>
+                <p class="text-blue-100">
+                    <span class="lang-en">
+                        I work across both frontend and backend systems, delivering complete products from idea to production.
+                        My frontend experience includes React and Angular, and my backend experience includes Django and Spring Boot.
+                        I also have hands-on experience with Google Firebase, including authentication (login) and database integration.
+                    </span>
+                    <span class="lang-th">
+                        ผมทำงานได้ทั้งฝั่ง frontend และ backend สามารถพัฒนาผลิตภัณฑ์ได้ครบตั้งแต่แนวคิดจนขึ้นระบบจริง
+                        ประสบการณ์ฝั่ง frontend คือ React และ Angular ส่วน backend คือ Django และ Spring Boot
+                        รวมถึงมีประสบการณ์ใช้งาน Google Firebase ทั้งระบบล็อกอินและฐานข้อมูล
+                    </span>
+                </p>
+            </div>
+
+            <div id="skills" class="tui-panel">
+                <p class="mb-3 font-mono text-sm text-blue-300">$ ls skills/</p>
+                <div class="grid gap-3 sm:grid-cols-2">
+                    <p class="inline-flex items-center gap-2">
+                        <span aria-hidden="true">🖥️</span>
+                        <span><span class="tui-kbd">Frontend</span> React, Angular, Astro, Tailwind CSS</span>
+                    </p>
+                    <p class="inline-flex items-center gap-2">
+                        <span aria-hidden="true">⚙️</span>
+                        <span><span class="tui-kbd">Backend</span> Django, Spring Boot, REST APIs</span>
+                    </p>
+                    <p class="inline-flex items-center gap-2">
+                        <span aria-hidden="true">☁️</span>
+                        <span>
+                        <span class="tui-kbd lang-en">Cloud DB</span>
+                        <span class="tui-kbd lang-th">ฐานข้อมูลคลาวด์</span>
+                        Google Firebase (Auth + Database)
+                        </span>
+                    </p>
+                    <p class="inline-flex items-center gap-2">
+                        <span aria-hidden="true">🐧</span>
+                        <span>
+                        <span class="tui-kbd lang-en">Tools</span>
+                        <span class="tui-kbd lang-th">เครื่องมือ</span>
+                        Git, CI/CD, Docker, Linux
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div id="experience" class="tui-panel">
+                <p class="mb-3 font-mono text-sm text-blue-300">$ cat experience.log</p>
+                <div class="grid gap-3">
+                    <article class="p-4 border rounded border-blue-700/70 bg-blue-950/35">
+                        <p class="text-xs text-blue-300">2021 | Internship | Chiang Mai, Thailand</p>
+                        <h2 class="mt-1 mb-2 text-lg text-blue-50">Intern • 4Xtreme</h2>
+                        <p class="text-sm text-blue-100">
+                            <span class="lang-en">
+                                Completed internship at
+                                <a href="https://www.4xtreme.com/" target="_blank" rel="noreferrer" class="text-blue-300">4Xtreme</a>
+                                in Chiang Mai, Thailand. I worked on frontend tasks using Entity Framework.
+                            </span>
+                            <span class="lang-th">
+                                ฝึกงานที่
+                                <a href="https://www.4xtreme.com/" target="_blank" rel="noreferrer" class="text-blue-300">4Xtreme</a>
+                                ที่เชียงใหม่ ประเทศไทย โดยทำงานด้าน frontend และใช้งาน Entity Framework
+                            </span>
+                        </p>
+                    </article>
+                    <article class="p-4 border rounded border-blue-700/70 bg-blue-950/35">
+                        <p class="text-xs text-blue-300">2024 - Present | Bangkok, Thailand</p>
+                        <h2 class="mt-1 mb-2 text-lg text-blue-50">Full Stack Developer • 1008Bit Company</h2>
+                        <p class="text-sm text-blue-100">
+                            <span class="lang-en">
+                                At 1008Bit Company, I develop and maintain business web platforms using React and Angular on frontend,
+                                with Django and Spring Boot services on backend. Built reusable API modules and release workflows
+                                that reduced deployment time for feature updates.
+                            </span>
+                            <span class="lang-th">
+                                ที่ 1008Bit Company ผมพัฒนาและดูแลแพลตฟอร์มเว็บธุรกิจโดยใช้ React และ Angular ฝั่ง frontend
+                                และใช้ Django กับ Spring Boot ฝั่ง backend รวมถึงออกแบบโมดูล API ที่นำกลับมาใช้ได้
+                                เพื่อช่วยลดเวลาในการปล่อยฟีเจอร์ใหม่
+                            </span>
+                        </p>
+                    </article>
+                </div>
+            </div>
+
+            <div id="contact" class="tui-panel">
+                <p class="mb-2 font-mono text-sm text-blue-300">$ ./contact.sh</p>
+                <p class="text-blue-100">
+                    <span class="lang-en"><del>Open to full-time, freelance, and contract opportunities.</del> <strong>Hired.</strong></span>
+                    <span class="lang-th"><del>เปิดรับงานประจำ งานฟรีแลนซ์ และงานแบบสัญญาจ้าง</del> <strong>ได้งานแล้ว</strong></span>
+                </p>
+                <p class="mt-3">
+                    <a href="mailto:nithisaran1999@gmail.com" class="btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                            <path d="m3 7 9 6 9-6"></path>
+                        </svg>
+                        <span class="lang-en">Send Email</span>
+                        <span class="lang-th">ส่งอีเมล</span>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </section>
 </Layout>

@@ -2,9 +2,11 @@
 
 @theme {
     --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    --color-primary: #f67280;
-    --color-primary-content: #101828;
-    --color-complementary: #355c7d;
+    --color-primary: #3b82f6;
+    --color-primary-content: #dbeafe;
+    --color-complementary: #050b1a;
+    --color-surface: #09142c;
+    --color-border: #1e40af;
     --background-image-noise: linear-gradient(
             to bottom,
             color-mix(in oklab, var(--color-gray-950) 0%, transparent),
@@ -14,6 +16,43 @@
 }
 
 @layer base {
+    html,
+    body {
+        @apply min-h-full;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    html {
+        color-scheme: dark;
+    }
+
+    html[data-theme='light'] {
+        color-scheme: light;
+    }
+
+    :where(section, div, article)[id] {
+        scroll-margin-top: 1.25rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+    }
+
+    body {
+        background: radial-gradient(circle at top right, color-mix(in oklab, var(--color-primary) 26%, transparent), transparent 35%),
+            radial-gradient(circle at bottom left, color-mix(in oklab, var(--color-primary) 12%, transparent), transparent 38%), var(--color-complementary);
+    }
+
+    html[data-theme='light'] body {
+        background: radial-gradient(circle at top right, color-mix(in oklab, var(--color-primary) 20%, white 80%), transparent 42%),
+            radial-gradient(circle at bottom left, color-mix(in oklab, var(--color-primary) 12%, white 88%), transparent 45%), #eaf2ff;
+    }
+
     h1 {
         @apply text-4xl font-bold tracking-tight sm:text-5xl;
     }
@@ -23,7 +62,7 @@
     }
 
     a:not(.btn) {
-        @apply underline transition hover:opacity-80;
+        @apply transition-colors hover:text-blue-200;
     }
 
     pre {
@@ -31,8 +70,44 @@
     }
 
     :not(pre) > code {
-        @apply px-1 py-0.5 font-mono rounded bg-gray-900 text-primary;
+        @apply px-1 py-0.5 font-mono rounded bg-blue-950/60 text-blue-200;
         font-size: 0.9em;
+    }
+
+    html[data-lang='en'] .lang-th {
+        display: none;
+    }
+
+    html[data-lang='th'] .lang-en {
+        display: none;
+    }
+
+    html[data-theme='light'] .text-blue-50,
+    html[data-theme='light'] .text-blue-100 {
+        color: #0f172a !important;
+    }
+
+    html[data-theme='light'] .text-blue-200,
+    html[data-theme='light'] .text-blue-300 {
+        color: #1d4ed8 !important;
+    }
+
+    html[data-theme='light'] .bg-blue-950\/20,
+    html[data-theme='light'] .bg-blue-950\/25,
+    html[data-theme='light'] .bg-blue-950\/30,
+    html[data-theme='light'] .bg-blue-950\/35,
+    html[data-theme='light'] .bg-blue-950\/45,
+    html[data-theme='light'] .bg-blue-950\/50,
+    html[data-theme='light'] .bg-blue-950\/80,
+    html[data-theme='light'] .bg-blue-950\/90 {
+        background-color: rgba(219, 234, 254, 0.8) !important;
+    }
+
+    html[data-theme='light'] .border-blue-700\/70,
+    html[data-theme='light'] .border-blue-600\/70,
+    html[data-theme='light'] .border-blue-600\/80,
+    html[data-theme='light'] .border-blue-300\/70 {
+        border-color: rgba(37, 99, 235, 0.55) !important;
     }
 }
 
@@ -56,13 +131,14 @@
     }
 
     .btn {
-        @apply inline-flex items-center justify-center gap-2 bg-primary text-primary-content cursor-pointer text-center font-semibold no-underline transition-colors;
+        @apply inline-flex items-center justify-center gap-2 cursor-pointer text-center font-semibold no-underline transition-colors border font-mono tracking-wide text-blue-100 bg-blue-950/45 border-blue-600/80;
         padding: var(--btn-py, 0.875rem) var(--btn-px, 1.25rem);
         font-size: var(--btn-font-size, 0.875rem);
         border-radius: var(--btn-border-radius, 0.25rem);
+        box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-border) 65%, transparent);
 
         &:hover {
-            @apply bg-primary/85;
+            @apply bg-blue-900/60 text-blue-50 border-blue-500;
         }
 
         &:disabled {
@@ -70,9 +146,127 @@
         }
     }
 
+    html[data-theme='light'] .btn {
+        color: #1e3a8a;
+        background-color: rgba(191, 219, 254, 0.9);
+        border-color: rgba(37, 99, 235, 0.6);
+    }
+
+    html[data-theme='light'] .btn:hover {
+        color: #1e40af;
+        background-color: rgba(147, 197, 253, 0.8);
+        border-color: rgba(37, 99, 235, 0.75);
+    }
+
     .btn-lg {
         --btn-font-size: 1.125rem;
         --btn-px: 1.5rem;
         --btn-py: 1.125rem;
     }
+
+    .tui-window {
+        @apply border rounded-lg overflow-hidden bg-blue-950/20 backdrop-blur-sm;
+        border-color: color-mix(in oklab, var(--color-border) 70%, #fff 10%);
+        box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-border) 75%, transparent), 0 16px 42px color-mix(in oklab, var(--color-primary) 14%, transparent);
+    }
+
+    html[data-theme='light'] .tui-window {
+        border-color: color-mix(in oklab, var(--color-border) 60%, white 30%);
+        box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-border) 35%, transparent), 0 16px 32px color-mix(in oklab, var(--color-primary) 10%, transparent);
+    }
+
+    .tui-titlebar {
+        @apply flex items-center justify-between gap-4 px-4 py-2 text-xs tracking-widest uppercase border-b;
+        border-color: color-mix(in oklab, var(--color-border) 80%, transparent);
+        background: color-mix(in oklab, var(--color-surface) 80%, transparent);
+    }
+
+    html[data-theme='light'] .tui-titlebar {
+        background: color-mix(in oklab, var(--color-surface) 12%, white 88%);
+    }
+
+    .tui-panel {
+        @apply p-4 border rounded-md;
+        border-color: color-mix(in oklab, var(--color-border) 75%, transparent);
+        background: color-mix(in oklab, var(--color-surface) 78%, transparent);
+    }
+
+    html[data-theme='light'] .tui-panel {
+        border-color: color-mix(in oklab, var(--color-border) 50%, white 30%);
+        background: color-mix(in oklab, var(--color-surface) 10%, white 90%);
+    }
+
+    .tui-kbd {
+        @apply px-2 py-1 text-xs border rounded-sm;
+        border-color: color-mix(in oklab, var(--color-border) 70%, transparent);
+        background: color-mix(in oklab, var(--color-surface) 90%, transparent);
+    }
+
+    .lang-switcher {
+        @apply inline-flex items-center border rounded-md overflow-hidden;
+        border-color: color-mix(in oklab, var(--color-border) 72%, transparent);
+        background: color-mix(in oklab, var(--color-surface) 82%, transparent);
+    }
+
+    .lang-switch-btn {
+        @apply px-2.5 py-1 text-xs font-mono text-blue-100 transition-colors;
+        min-width: 2.6rem;
+    }
+
+    .lang-switch-btn:hover {
+        @apply bg-blue-900/45;
+    }
+
+    html[data-theme='light'] .lang-switch-btn {
+        color: #1e3a8a;
+    }
+
+    html[data-theme='light'] .lang-switch-btn:hover {
+        background: rgba(147, 197, 253, 0.5);
+    }
+
+    html[data-lang='en'] .lang-switch-btn[data-set-lang='en'],
+    html[data-lang='th'] .lang-switch-btn[data-set-lang='th'] {
+        @apply bg-blue-700/60 text-blue-50;
+    }
+
+    html[data-theme='light'] .lang-switch-btn[data-set-lang='en'],
+    html[data-theme='light'] .lang-switch-btn[data-set-lang='th'] {
+        color: #eff6ff;
+    }
+
+    .back-to-top {
+        @apply fixed right-5 bottom-5 sm:right-8 sm:bottom-8 w-10 h-10 sm:w-11 sm:h-11 rounded-md border text-blue-100 bg-blue-950/80 font-mono text-lg leading-none;
+        border-color: color-mix(in oklab, var(--color-border) 78%, transparent);
+        box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-border) 70%, transparent), 0 10px 24px color-mix(in oklab, var(--color-primary) 12%, transparent);
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+        transition: opacity 180ms ease, transform 180ms ease, background-color 160ms ease, border-color 160ms ease;
+        z-index: 40;
+    }
+
+    .back-to-top:hover {
+        @apply bg-blue-900/85 text-blue-50;
+        border-color: color-mix(in oklab, var(--color-primary) 78%, transparent);
+    }
+
+    html[data-theme='light'] .back-to-top {
+        color: #1e3a8a;
+        background: rgba(219, 234, 254, 0.92);
+        border-color: rgba(37, 99, 235, 0.55);
+    }
+
+    html[data-theme='light'] .back-to-top:hover {
+        color: #1e40af;
+        background: rgba(147, 197, 253, 0.9);
+        border-color: rgba(37, 99, 235, 0.75);
+    }
+
+    .back-to-top.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
 }

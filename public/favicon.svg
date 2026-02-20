@@ -1,30 +1,16 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    .favicon-center-dot {
-      fill: #014847;
-    }
-
-    .favicon-lines {
-      fill: #05BDBA;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .favicon-center-dot {
-        fill: #fff;
-      }
-
-      .favicon-lines {
-        fill: #05BDBA;
-      }
-    }
-  </style>
-  <path class="favicon-center-dot" stroke="none" d="M17.9922 18.3225H14.005L13.6746 17.9921V14.005L14.005 13.6746H17.9922L18.3226 14.005V17.9921L17.9922 18.3225Z" />
-  <g class="favicon-lines" stroke="none">
-    <path d="M9.6958 24.3311H9.35705L7.6661 22.6401V22.3041L10.2511 19.7164L12.042 19.7191L12.2808 19.9552V21.7461L9.6958 24.3311Z" />
-    <path d="M7.6661 9.69576V9.35701L9.35705 7.66606H9.6958L12.2808 10.2511V12.0392L12.042 12.2808H10.2511L7.6661 9.69576Z" />
-    <path d="M10.0457 17.4369H0.205466L0 17.2314V14.7658L0.205466 14.5603H10.0457L10.2511 14.7658V17.2314L10.0457 17.4369Z" />
-    <path d="M31.7945 17.4369H21.9544L21.7489 17.2314V14.7658L21.9544 14.5603H31.7945L32 14.7658V17.2314L31.7945 17.4369Z" />
-    <path d="M14.5631 10.0456V2.66547L14.7686 2.46001H17.2343L17.4396 2.66547V10.0456L17.2343 10.2511H14.7686L14.5631 10.0456Z" />
-    <path d="M14.5631 29.3316V21.9515L14.7686 21.746H17.2343L17.4396 21.9515V29.3316L17.2343 29.5371H14.7686L14.5631 29.3316Z" />
-  </g>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#020617"/>
+      <stop offset="1" stop-color="#0B1120"/>
+    </linearGradient>
+    <linearGradient id="line" x1="14" y1="10" x2="52" y2="54" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#60A5FA"/>
+      <stop offset="1" stop-color="#2563EB"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="12" fill="url(#bg)"/>
+  <rect x="4" y="4" width="56" height="56" rx="12" stroke="#1D4ED8" stroke-width="2"/>
+  <path d="M16 46V18H21L34 36V18H39V46H34L21 28V46H16Z" fill="url(#line)"/>
+  <path d="M48.5 19.5C45.2 19.5 43 21.3 43 24C43 26.7 45 28.1 48.1 29.2C50.8 30.1 52.1 30.8 52.1 32.4C52.1 34.1 50.6 35.2 48.5 35.2C46.4 35.2 44.4 34.2 43 32.8L40.4 36.1C42.2 38.3 45.2 39.9 48.6 39.9C53.5 39.9 57 37.1 57 32.5C57 28.4 54.5 26.4 50 24.9C47.3 24 46 23.4 46 22C46 20.7 47.1 19.8 48.8 19.8C50.5 19.8 52.1 20.5 53.4 21.6L55.8 18.1C54.2 16.5 51.8 15.4 48.9 15.4C48.8 15.4 48.6 15.4 48.5 15.4V19.5Z" fill="url(#line)"/>
 </svg>

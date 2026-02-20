@@ -13,7 +13,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en" data-theme="dark">
     <head>
         <meta charset="UTF-8" />
         <title>{title}</title>
@@ -21,6 +21,27 @@ const { title } = Astro.props;
         <meta name="generator" content={Astro.generator} />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="preload" as="font" type="font/woff2" href={interWoff2} crossorigin />
+        <script is:inline>
+            (() => {
+                const docEl = document.documentElement;
+                const saved = localStorage.getItem('portfolio-lang');
+                const lang = saved || (navigator.language?.toLowerCase().startsWith('th') ? 'th' : 'en');
+                const themeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+                const applyTheme = () => {
+                    docEl.setAttribute('data-theme', themeMedia.matches ? 'dark' : 'light');
+                };
+
+                docEl.setAttribute('data-lang', lang);
+                docEl.setAttribute('lang', lang);
+                applyTheme();
+
+                if (typeof themeMedia.addEventListener === 'function') {
+                    themeMedia.addEventListener('change', applyTheme);
+                } else if (typeof themeMedia.addListener === 'function') {
+                    themeMedia.addListener(applyTheme);
+                }
+            })();
+        </script>
     </head>
     <body class="antialiased text-white bg-complementary">
         <div class="flex flex-col min-h-screen px-6 bg-noise sm:px-12">
@@ -30,5 +51,27 @@ const { title } = Astro.props;
                 <Footer />
             </div>
         </div>
+
+        <button id="backToTopBtn" class="back-to-top" type="button" aria-label="Back to top">
+            ↑
+        </button>
+
+        <script is:inline>
+            (() => {
+                const backToTopButton = document.getElementById('backToTopBtn');
+
+                const toggleBackToTop = () => {
+                    if (!backToTopButton) return;
+                    backToTopButton.classList.toggle('is-visible', window.scrollY > 320);
+                };
+
+                toggleBackToTop();
+                window.addEventListener('scroll', toggleBackToTop, { passive: true });
+
+                backToTopButton?.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            })();
+        </script>
     </body>
 </html>
