@@ -211,10 +211,10 @@ import Layout from '../layouts/Layout.astro';
                 'Tools: Git, CI/CD, Docker, Linux'
             ],
             th: [
-                'Frontend: React, Angular, Astro, Tailwind CSS',
-                'Backend: Django, Spring Boot, REST APIs',
-                'ฐานข้อมูลคลาวด์: Google Firebase (Auth + Database)',
-                'เครื่องมือ: Git, CI/CD, Docker, Linux'
+                'พัฒนา Frontend: React, Angular, Astro, Tailwind CSS',
+                'พัฒนา Backend: Django, Spring Boot, REST APIs',
+                'ฐานข้อมูลบนคลาวด์: Google Firebase (Authentication และ Database)',
+                'เครื่องมือและระบบ: Git, CI/CD, Docker, Linux'
             ]
         };
 
@@ -223,8 +223,28 @@ import Layout from '../layouts/Layout.astro';
         const experienceItems = [...document.querySelectorAll('#experience article')].map((article) => {
             const title = removeIcons(article.querySelector('h2')?.textContent || '');
             const period = cleanText(article.querySelector('p')?.textContent || '');
-            const details = removeIcons(getLocalizedText(article.querySelector('.text-blue-100') || article, lang));
-            return { period, title, details };
+            let details = removeIcons(getLocalizedText(article.querySelector('.text-blue-100') || article, lang));
+            let achievement = '';
+
+            if (lang === 'th') {
+                if (title.includes('4Xtreme')) {
+                    details = 'สนับสนุนงานพัฒนา Frontend ตามขอบเขตงานที่ได้รับมอบหมาย และประยุกต์ใช้งาน Entity Framework ในส่วนที่เกี่ยวข้องกับระบบ เพื่อให้การพัฒนาฟีเจอร์เป็นไปตามมาตรฐานของทีมและแผนงานโครงการ';
+                    achievement = 'ผลงานเด่น: สนับสนุนการส่งมอบฟีเจอร์ตามแผนโครงการและมาตรฐานโค้ดของทีมได้อย่างต่อเนื่อง';
+                } else if (title.includes('1008Bit Company')) {
+                    details = 'รับผิดชอบการพัฒนาและบำรุงรักษาเว็บแอปพลิเคชันเชิงธุรกิจ โดยใช้ React และ Angular ฝั่ง Frontend รวมถึง Django และ Spring Boot ฝั่ง Backend พร้อมทั้งพัฒนาโครงสร้าง API ที่นำกลับมาใช้ซ้ำได้ และสนับสนุนกระบวนการปล่อยระบบเพื่อเพิ่มประสิทธิภาพการส่งมอบงาน';
+                    achievement = 'ผลงานเด่น: ปรับปรุงกระบวนการส่งมอบงานให้รวดเร็วขึ้นด้วยการออกแบบ API ที่ใช้ซ้ำได้และแนวทาง deploy ที่เป็นระบบ';
+                }
+            } else {
+                if (title.includes('4Xtreme')) {
+                    details = 'Supported frontend development tasks during internship and applied Entity Framework within assigned modules, ensuring deliverables aligned with team coding standards and project timelines.';
+                    achievement = 'Key Achievement: Consistently delivered assigned frontend features on schedule while maintaining team quality standards.';
+                } else if (title.includes('1008Bit Company')) {
+                    details = 'Responsible for developing and maintaining business web applications using React and Angular for frontend, together with Django and Spring Boot for backend services; also designed reusable API structures and supported release workflows to improve delivery efficiency.';
+                    achievement = 'Key Achievement: Improved delivery efficiency by introducing reusable API patterns and a more consistent release workflow.';
+                }
+            }
+
+            return { period, title, details, achievement };
         });
 
         const labels = {
@@ -237,13 +257,23 @@ import Layout from '../layouts/Layout.astro';
                 additional: 'Additional Highlights'
             },
             th: {
-                title: 'ประวัติส่วนตัว (CV)',
+                title: 'ประวัติการทำงาน (Curriculum Vitae)',
                 profile: 'ข้อมูลส่วนตัว',
                 professionalSummary: 'สรุปประสบการณ์วิชาชีพ',
                 coreCompetencies: 'ทักษะหลัก',
                 experience: 'ประสบการณ์การทำงาน',
-                additional: 'จุดเด่นเพิ่มเติม'
+                additional: 'ความสามารถเพิ่มเติม'
             }
+        };
+
+        const formalProfileByLang = {
+            en: about,
+            th: 'Nithisaran เป็นนักพัฒนา Full Stack ที่มีประสบการณ์ในการพัฒนาเว็บแอปพลิเคชันแบบครบวงจร ตั้งแต่การออกแบบส่วนติดต่อผู้ใช้ การพัฒนาระบบ API ฝั่งเซิร์ฟเวอร์ ไปจนถึงการนำระบบขึ้นใช้งานจริง โดยมุ่งเน้นคุณภาพโค้ด ความยืดหยุ่นของสถาปัตยกรรม และประสิทธิภาพการใช้งาน.'
+        };
+
+        const formalSummaryByLang = {
+            en: summary,
+            th: 'มีความเชี่ยวชาญในการพัฒนาและบำรุงรักษาระบบเว็บทั้งฝั่ง Frontend และ Backend ด้วย React, Angular, Django และ Spring Boot รวมถึงมีประสบการณ์ในการเชื่อมต่อและใช้งาน Google Firebase สำหรับระบบยืนยันตัวตนและฐานข้อมูลในสภาพแวดล้อมการใช้งานจริง.'
         };
 
         const formalHighlights = {
@@ -264,8 +294,8 @@ import Layout from '../layouts/Layout.astro';
         return {
             name,
             role,
-            summary,
-            about,
+            summary: formalSummaryByLang[lang],
+            about: formalProfileByLang[lang],
             skillItems,
             experienceItems,
             labels: labels[lang],
@@ -300,49 +330,53 @@ import Layout from '../layouts/Layout.astro';
         container.style.left = '-99999px';
         container.style.top = '0';
         container.style.width = '794px';
-        container.style.padding = '36px';
+        container.style.padding = '26px';
         container.style.background = '#ffffff';
         container.style.color = '#111827';
         container.style.fontFamily = "Arial, 'Noto Sans Thai', sans-serif";
-        container.style.fontSize = '14px';
+        container.style.fontSize = '13.5px';
         container.style.lineHeight = '1.6';
         container.style.zIndex = '-1';
 
         container.innerHTML = `
-            <div style="display:flex;align-items:flex-start;gap:20px;margin-bottom:18px;">
-                <img src="${escapeHtml(imageDataUrl)}" alt="Profile" style="width:92px;height:92px;border-radius:10px;object-fit:cover;border:2px solid #1d4ed8;" />
-                <div>
-                    <h1 style="margin:0 0 4px 0;font-size:28px;color:#111827;">${escapeHtml(data.name)}</h1>
-                    <p style="margin:0 0 4px 0;color:#1e40af;font-size:16px;font-weight:600;">${escapeHtml(data.role)}</p>
-                    <p style="margin:0;color:#374151;font-size:13px;">${escapeHtml(data.labels.title)}</p>
-                </div>
+            <div style="display:flex;align-items:stretch;overflow:hidden;">
+                <aside style="width:34%;background:#f8fafc;padding:18px 16px;">
+                    <div style="display:flex;justify-content:center;margin-bottom:12px;">
+                        <img src="${escapeHtml(imageDataUrl)}" alt="Profile" style="width:108px;height:108px;border-radius:12px;object-fit:cover;" />
+                    </div>
+                    <h1 style="margin:0 0 3px 0;font-size:24px;line-height:1.2;color:#0f172a;text-align:center;">${escapeHtml(data.name)}</h1>
+                    <p style="margin:0 0 2px 0;color:#1e40af;font-size:15px;font-weight:700;text-align:center;">${escapeHtml(data.role)}</p>
+                    <p style="margin:0 0 14px 0;color:#475569;font-size:12px;text-align:center;">${escapeHtml(data.labels.title)}</p>
+
+                    <h2 style="margin:0 0 8px 0;font-size:14px;letter-spacing:0.04em;text-transform:uppercase;color:#0f172a;padding-bottom:4px;">${escapeHtml(data.labels.coreCompetencies)}</h2>
+                    <ul style="margin:0 0 14px 18px;padding:0;">
+                        ${data.skillItems.map((item) => `<li style="margin:0 0 5px 0;">${escapeHtml(item)}</li>`).join('')}
+                    </ul>
+
+                    <h2 style="margin:0 0 8px 0;font-size:14px;letter-spacing:0.04em;text-transform:uppercase;color:#0f172a;padding-bottom:4px;">${escapeHtml(data.labels.additional)}</h2>
+                    <ul style="margin:0 0 0 18px;padding:0;">
+                        ${data.formalHighlights.map((item) => `<li style="margin:0 0 6px 0;">${escapeHtml(item)}</li>`).join('')}
+                    </ul>
+                </aside>
+
+                <main style="width:66%;padding:18px 18px 16px 18px;">
+                    <h2 style="margin:0 0 8px 0;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;color:#0f172a;padding-bottom:4px;">${escapeHtml(data.labels.profile)}</h2>
+                    <p style="margin:0 0 14px 0;">${escapeHtml(data.about)}</p>
+
+                    <h2 style="margin:0 0 8px 0;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;color:#0f172a;padding-bottom:4px;">${escapeHtml(data.labels.professionalSummary)}</h2>
+                    <p style="margin:0 0 14px 0;">${escapeHtml(data.summary)}</p>
+
+                    <h2 style="margin:0 0 8px 0;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;color:#0f172a;padding-bottom:4px;">${escapeHtml(data.labels.experience)}</h2>
+                    <div style="display:grid;gap:10px;">
+                        ${data.experienceItems
+                            .map(
+                                (item) =>
+                                    `<section style="padding:9px 10px;"><p style="margin:0 0 4px 0;color:#475569;font-size:12px;">${escapeHtml(item.period)}</p><p style="margin:0 0 4px 0;font-weight:700;color:#0f172a;">${escapeHtml(item.title)}</p><p style="margin:0 0 4px 0;color:#1f2937;">${escapeHtml(item.details)}</p><p style="margin:0;color:#1e40af;font-size:12.5px;font-weight:600;">${escapeHtml(item.achievement)}</p></section>`
+                            )
+                            .join('')}
+                    </div>
+                </main>
             </div>
-
-            <h2 style="margin:0 0 8px 0;font-size:18px;color:#1f2937;">${escapeHtml(data.labels.profile)}</h2>
-            <p style="margin:0 0 14px 0;">${escapeHtml(data.about)}</p>
-
-            <h2 style="margin:0 0 8px 0;font-size:18px;color:#1f2937;">${escapeHtml(data.labels.professionalSummary)}</h2>
-            <p style="margin:0 0 14px 0;">${escapeHtml(data.summary)}</p>
-
-            <h2 style="margin:0 0 8px 0;font-size:18px;color:#1f2937;">${escapeHtml(data.labels.coreCompetencies)}</h2>
-            <ul style="margin:0 0 16px 20px;padding:0;">
-                ${data.skillItems.map((item) => `<li style="margin:0 0 6px 0;">${escapeHtml(item)}</li>`).join('')}
-            </ul>
-
-            <h2 style="margin:0 0 8px 0;font-size:18px;color:#1f2937;">${escapeHtml(data.labels.experience)}</h2>
-            <ul style="margin:0 0 16px 20px;padding:0;">
-                ${data.experienceItems
-                    .map(
-                        (item) =>
-                            `<li style="margin:0 0 10px 0;"><strong>${escapeHtml(item.title)}</strong><br/><span style="color:#374151;">${escapeHtml(item.period)}</span><br/>${escapeHtml(item.details)}</li>`
-                    )
-                    .join('')}
-            </ul>
-
-            <h2 style="margin:0 0 8px 0;font-size:18px;color:#1f2937;">${escapeHtml(data.labels.additional)}</h2>
-            <ul style="margin:0 0 0 20px;padding:0;">
-                ${data.formalHighlights.map((item) => `<li style="margin:0 0 6px 0;">${escapeHtml(item)}</li>`).join('')}
-            </ul>
         `;
 
         document.body.appendChild(container);
