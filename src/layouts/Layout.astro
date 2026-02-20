@@ -28,23 +28,42 @@ const { title } = Astro.props;
                 const saved = localStorage.getItem('portfolio-lang');
                 const lang = saved || (navigator.language?.toLowerCase().startsWith('th') ? 'th' : 'en');
                 const themeMedia = window.matchMedia('(prefers-color-scheme: dark)');
-                const applyTheme = () => {
-                    docEl.setAttribute('data-theme', themeMedia.matches ? 'dark' : 'light');
+                const resolveThemePreference = (value) => {
+                    if (value === 'dark' || value === 'light' || value === 'system') {
+                        return value;
+                    }
+
+                    return 'system';
                 };
+                const applyTheme = (preference) => {
+                    const nextPreference = resolveThemePreference(preference);
+                    const nextTheme = nextPreference === 'system' ? (themeMedia.matches ? 'dark' : 'light') : nextPreference;
+                    docEl.setAttribute('data-theme-pref', nextPreference);
+                    docEl.setAttribute('data-theme', nextTheme);
+                };
+                const storedThemePreference = resolveThemePreference(localStorage.getItem('portfolio-theme'));
 
                 docEl.setAttribute('data-lang', lang);
                 docEl.setAttribute('lang', lang);
-                applyTheme();
+                applyTheme(storedThemePreference);
 
                 if (typeof themeMedia.addEventListener === 'function') {
-                    themeMedia.addEventListener('change', applyTheme);
+                    themeMedia.addEventListener('change', () => {
+                        if (resolveThemePreference(docEl.getAttribute('data-theme-pref')) === 'system') {
+                            applyTheme('system');
+                        }
+                    });
                 } else if (typeof themeMedia.addListener === 'function') {
-                    themeMedia.addListener(applyTheme);
+                    themeMedia.addListener(() => {
+                        if (resolveThemePreference(docEl.getAttribute('data-theme-pref')) === 'system') {
+                            applyTheme('system');
+                        }
+                    });
                 }
             })();
         </script>
     </head>
-    <body class="antialiased text-white bg-complementary">
+    <body class="antialiased bg-complementary">
         <div class="flex flex-col min-h-screen px-3 bg-noise sm:px-8 lg:px-12">
             <div class="flex flex-col w-full max-w-5xl mx-auto grow">
                 <Header />

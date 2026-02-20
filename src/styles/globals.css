@@ -7,12 +7,7 @@
     --color-complementary: #050b1a;
     --color-surface: #09142c;
     --color-border: #1e40af;
-    --background-image-noise: linear-gradient(
-            to bottom,
-            color-mix(in oklab, var(--color-gray-950) 0%, transparent),
-            color-mix(in oklab, var(--color-gray-950) 100%, transparent)
-        ),
-        url('/images/noise.png');
+    --background-image-noise: none;
 }
 
 @layer base {
@@ -46,11 +41,27 @@
     body {
         background: radial-gradient(circle at top right, color-mix(in oklab, var(--color-primary) 26%, transparent), transparent 35%),
             radial-gradient(circle at bottom left, color-mix(in oklab, var(--color-primary) 12%, transparent), transparent 38%), var(--color-complementary);
+        color: color-mix(in oklab, white 92%, var(--color-primary) 8%);
     }
 
     html[data-theme='light'] body {
-        background: radial-gradient(circle at top right, color-mix(in oklab, var(--color-primary) 20%, white 80%), transparent 42%),
-            radial-gradient(circle at bottom left, color-mix(in oklab, var(--color-primary) 12%, white 88%), transparent 45%), #eaf2ff;
+        background-color: #f8fbff;
+        background-image: radial-gradient(circle at 12% 8%, #dbeafe 0%, rgba(219, 234, 254, 0) 42%),
+            radial-gradient(circle at 86% 12%, #bfdbfe 0%, rgba(191, 219, 254, 0) 46%),
+            linear-gradient(180deg, #f8fbff 0%, #eef4ff 55%, #ffffff 100%);
+        color: color-mix(in oklab, var(--color-complementary) 90%, white 10%);
+    }
+
+    html[data-theme='light'] .bg-complementary {
+        background-color: #f8fbff !important;
+    }
+
+    html[data-theme='light'] a:not(.btn) {
+        color: color-mix(in oklab, var(--color-primary) 72%, var(--color-complementary) 28%);
+    }
+
+    html[data-theme='light'] a:not(.btn):hover {
+        color: color-mix(in oklab, var(--color-primary) 82%, var(--color-complementary) 18%);
     }
 
     h1 {
@@ -72,6 +83,11 @@
     :not(pre) > code {
         @apply px-1 py-0.5 font-mono rounded bg-blue-950/60 text-blue-200;
         font-size: 0.9em;
+    }
+
+    html[data-theme='light'] :not(pre) > code {
+        background: color-mix(in oklab, var(--color-primary) 12%, white 88%);
+        color: color-mix(in oklab, var(--color-primary) 72%, var(--color-complementary) 28%);
     }
 
     html[data-lang='en'] .lang-th {
@@ -100,15 +116,84 @@
     html[data-theme='light'] .bg-blue-950\/50,
     html[data-theme='light'] .bg-blue-950\/80,
     html[data-theme='light'] .bg-blue-950\/90 {
-        background-color: rgba(219, 234, 254, 0.8) !important;
+        background-color: color-mix(in oklab, white 90%, var(--color-primary) 10%) !important;
     }
 
     html[data-theme='light'] .border-blue-700\/70,
     html[data-theme='light'] .border-blue-600\/70,
     html[data-theme='light'] .border-blue-600\/80,
     html[data-theme='light'] .border-blue-300\/70 {
-        border-color: rgba(37, 99, 235, 0.55) !important;
+        border-color: color-mix(in oklab, var(--color-primary) 42%, white 58%) !important;
     }
+
+    html[data-theme='light'] #mobileMenuToggle {
+        color: color-mix(in oklab, var(--color-primary) 68%, var(--color-complementary) 32%);
+        background: color-mix(in oklab, white 90%, var(--color-primary) 10%);
+        border-color: color-mix(in oklab, var(--color-primary) 44%, white 56%);
+    }
+
+    html[data-theme='light'] nav > a {
+        color: color-mix(in oklab, var(--color-primary) 66%, var(--color-complementary) 34%);
+    }
+
+    html[data-theme='light'] #mobileMenu {
+        color: color-mix(in oklab, var(--color-complementary) 88%, white 12%);
+    }
+
+    html[data-theme='light'] #mobileMenu [data-nav-link] {
+        color: color-mix(in oklab, var(--color-primary) 64%, var(--color-complementary) 36%);
+        border-color: color-mix(in oklab, var(--color-primary) 34%, white 66%);
+        background: color-mix(in oklab, white 92%, var(--color-primary) 8%);
+    }
+
+    html[data-theme='light'] #mobileMenu [data-nav-link]:hover {
+        color: color-mix(in oklab, var(--color-primary) 78%, var(--color-complementary) 22%);
+        border-color: color-mix(in oklab, var(--color-primary) 50%, white 50%);
+        background: color-mix(in oklab, white 86%, var(--color-primary) 14%);
+    }
+
+    @media (min-width: 640px) {
+        #mobileMenu {
+            padding: 0.25rem;
+            background: transparent;
+            border-color: transparent;
+        }
+
+        html[data-theme='light'] #mobileMenu.bg-blue-950\/25 {
+            background-color: transparent !important;
+        }
+
+        html[data-theme='dark'] #mobileMenu [data-nav-link],
+        html[data-theme='dark'] #mobileMenu [data-nav-link]:hover {
+            background: transparent;
+            color: color-mix(in oklab, white 92%, var(--color-primary) 8%);
+            border-color: color-mix(in oklab, var(--color-border) 62%, transparent);
+        }
+
+        html[data-theme='light'] #mobileMenu [data-nav-link],
+        html[data-theme='light'] #mobileMenu [data-nav-link]:hover {
+            background: transparent;
+            border-color: color-mix(in oklab, var(--color-primary) 42%, white 58%);
+        }
+
+        html[data-theme='dark'] #mobileMenu [data-nav-link]:hover {
+            border-color: color-mix(in oklab, var(--color-primary) 64%, transparent);
+        }
+
+        html[data-theme='light'] #mobileMenu [data-nav-link]:hover {
+            border-color: color-mix(in oklab, var(--color-primary) 56%, white 44%);
+        }
+    }
+
+    html[data-theme='light'] footer > div {
+        background: color-mix(in oklab, white 92%, var(--color-primary) 8%);
+        border-color: color-mix(in oklab, var(--color-primary) 38%, white 62%);
+    }
+
+    html[data-theme='light'] .tui-panel {
+        color: color-mix(in oklab, var(--color-complementary) 88%, white 12%);
+    }
+
 }
 
 @layer components {
@@ -182,7 +267,7 @@
     }
 
     html[data-theme='light'] .tui-titlebar {
-        background: color-mix(in oklab, var(--color-surface) 12%, white 88%);
+        background: color-mix(in oklab, var(--color-surface) 8%, white 92%);
     }
 
     .tui-panel {
@@ -192,8 +277,8 @@
     }
 
     html[data-theme='light'] .tui-panel {
-        border-color: color-mix(in oklab, var(--color-border) 50%, white 30%);
-        background: color-mix(in oklab, var(--color-surface) 10%, white 90%);
+        border-color: color-mix(in oklab, var(--color-border) 38%, white 40%);
+        background: color-mix(in oklab, var(--color-surface) 6%, white 94%);
     }
 
     .tui-kbd {
@@ -202,37 +287,74 @@
         background: color-mix(in oklab, var(--color-surface) 90%, transparent);
     }
 
-    .lang-switcher {
+    html[data-theme='light'] .tui-kbd {
+        border-color: color-mix(in oklab, var(--color-primary) 38%, white 62%);
+        background: color-mix(in oklab, white 90%, var(--color-primary) 10%);
+        color: color-mix(in oklab, var(--color-primary) 70%, var(--color-complementary) 30%);
+    }
+
+    .lang-switcher,
+    .theme-switcher {
         @apply inline-flex items-center border rounded-md overflow-hidden;
         border-color: color-mix(in oklab, var(--color-border) 72%, transparent);
         background: color-mix(in oklab, var(--color-surface) 82%, transparent);
     }
 
-    .lang-switch-btn {
-        @apply px-2.5 py-1 text-xs font-mono text-blue-100 transition-colors;
+    .lang-switch-btn,
+    .theme-switch-btn {
+        @apply px-2 py-1.5 sm:px-2 sm:py-1 text-xs sm:text-sm font-medium transition-colors;
         min-width: 2.6rem;
+        color: color-mix(in oklab, white 92%, var(--color-primary) 8%);
     }
 
-    .lang-switch-btn:hover {
-        @apply bg-blue-900/45;
+    .lang-switch-btn + .lang-switch-btn,
+    .theme-switch-btn + .theme-switch-btn {
+        border-left: 1px solid color-mix(in oklab, var(--color-border) 62%, transparent);
     }
 
-    html[data-theme='light'] .lang-switch-btn {
-        color: #1e3a8a;
+    .lang-switch-btn:hover,
+    .theme-switch-btn:hover {
+        background: color-mix(in oklab, var(--color-surface) 70%, transparent);
     }
 
-    html[data-theme='light'] .lang-switch-btn:hover {
-        background: rgba(147, 197, 253, 0.5);
+    html[data-theme='light'] .lang-switcher,
+    html[data-theme='light'] .theme-switcher {
+        border-color: color-mix(in oklab, var(--color-primary) 42%, white 58%);
+        background: color-mix(in oklab, white 90%, var(--color-primary) 10%);
+    }
+
+    html[data-theme='light'] .lang-switch-btn,
+    html[data-theme='light'] .theme-switch-btn {
+        color: color-mix(in oklab, var(--color-primary) 68%, var(--color-complementary) 32%);
+    }
+
+    html[data-theme='light'] .lang-switch-btn + .lang-switch-btn,
+    html[data-theme='light'] .theme-switch-btn + .theme-switch-btn {
+        border-left-color: color-mix(in oklab, var(--color-primary) 42%, white 58%);
+    }
+
+    html[data-theme='light'] .lang-switch-btn:hover,
+    html[data-theme='light'] .theme-switch-btn:hover {
+        background: color-mix(in oklab, white 86%, var(--color-primary) 14%);
     }
 
     html[data-lang='en'] .lang-switch-btn[data-set-lang='en'],
-    html[data-lang='th'] .lang-switch-btn[data-set-lang='th'] {
-        @apply bg-blue-700/60 text-blue-50;
+    html[data-lang='th'] .lang-switch-btn[data-set-lang='th'],
+    html[data-theme-pref='dark'] .theme-switch-btn[data-set-theme='dark'],
+    html[data-theme-pref='light'] .theme-switch-btn[data-set-theme='light'],
+    html[data-theme-pref='system'] .theme-switch-btn[data-set-theme='system'] {
+        border-color: color-mix(in oklab, var(--color-primary) 72%, transparent);
+        background: color-mix(in oklab, var(--color-primary) 34%, var(--color-surface) 66%);
+        color: #eff6ff;
     }
 
-    html[data-theme='light'] .lang-switch-btn[data-set-lang='en'],
-    html[data-theme='light'] .lang-switch-btn[data-set-lang='th'] {
-        color: #eff6ff;
+    html[data-theme='light'][data-lang='en'] .lang-switch-btn[data-set-lang='en'],
+    html[data-theme='light'][data-lang='th'] .lang-switch-btn[data-set-lang='th'],
+    html[data-theme='light'][data-theme-pref='dark'] .theme-switch-btn[data-set-theme='dark'],
+    html[data-theme='light'][data-theme-pref='light'] .theme-switch-btn[data-set-theme='light'],
+    html[data-theme='light'][data-theme-pref='system'] .theme-switch-btn[data-set-theme='system'] {
+        background: color-mix(in oklab, white 74%, var(--color-primary) 26%);
+        color: color-mix(in oklab, var(--color-complementary) 94%, white 6%);
     }
 
     .back-to-top {
