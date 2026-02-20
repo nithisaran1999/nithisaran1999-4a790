@@ -23,7 +23,7 @@ import Layout from '../layouts/Layout.astro';
             <div class="tui-panel">
                 <div class="grid items-center gap-5 sm:grid-cols-[140px_1fr]">
                     <img
-                        src="https://gitlab.com/uploads/-/system/user/avatar/11095030/avatar.png"
+                        src="/images/profile-avatar.png"
                         alt="Profile picture"
                         width="140"
                         height="140"
@@ -197,38 +197,69 @@ import Layout from '../layouts/Layout.astro';
     };
 
     const buildCvData = (lang) => {
-
         const name = cleanText(document.querySelector('h1')?.textContent || 'Nithisaran');
         const role = getLocalizedText(document.querySelector('h1 + p') || document.body, lang);
         const summary = getLocalizedText(document.querySelector('h1 + p + p') || document.body, lang);
 
         const about = getLocalizedText(document.querySelector('#about .text-blue-100') || document.body, lang);
 
-        const skillItems = [...document.querySelectorAll('#skills .grid > p')].map((item) => removeIcons(item.textContent || '')).filter(Boolean);
+        const skillItemsByLang = {
+            en: [
+                'Frontend: React, Angular, Astro, Tailwind CSS',
+                'Backend: Django, Spring Boot, REST APIs',
+                'Cloud DB: Google Firebase (Auth + Database)',
+                'Tools: Git, CI/CD, Docker, Linux'
+            ],
+            th: [
+                'Frontend: React, Angular, Astro, Tailwind CSS',
+                'Backend: Django, Spring Boot, REST APIs',
+                'ฐานข้อมูลคลาวด์: Google Firebase (Auth + Database)',
+                'เครื่องมือ: Git, CI/CD, Docker, Linux'
+            ]
+        };
+
+        const skillItems = skillItemsByLang[lang];
 
         const experienceItems = [...document.querySelectorAll('#experience article')].map((article) => {
             const title = removeIcons(article.querySelector('h2')?.textContent || '');
             const period = cleanText(article.querySelector('p')?.textContent || '');
             const details = removeIcons(getLocalizedText(article.querySelector('.text-blue-100') || article, lang));
-            return [period, title, details].filter(Boolean).join(' | ');
+            return { period, title, details };
         });
 
         const labels = {
             en: {
-            title: 'Curriculum Vitae',
-                summary: 'Summary',
-                about: 'About',
-                skills: 'Skills',
-                experience: 'Experience'
+                title: 'Curriculum Vitae',
+                profile: 'Profile',
+                professionalSummary: 'Professional Summary',
+                coreCompetencies: 'Core Competencies',
+                experience: 'Professional Experience',
+                additional: 'Additional Highlights'
             },
             th: {
                 title: 'ประวัติส่วนตัว (CV)',
-                summary: 'สรุป',
-                about: 'เกี่ยวกับ',
-                skills: 'ทักษะ',
-                experience: 'ประสบการณ์'
+                profile: 'ข้อมูลส่วนตัว',
+                professionalSummary: 'สรุปประสบการณ์วิชาชีพ',
+                coreCompetencies: 'ทักษะหลัก',
+                experience: 'ประสบการณ์การทำงาน',
+                additional: 'จุดเด่นเพิ่มเติม'
             }
         };
+
+        const formalHighlights = {
+            en: [
+                'Designs and delivers end-to-end web solutions from UI implementation to backend services.',
+                'Builds maintainable APIs and supports deployment workflows for reliable production releases.',
+                'Collaborates effectively in cross-functional teams and adapts quickly to project requirements.'
+            ],
+            th: [
+                'ออกแบบและพัฒนาเว็บแอปพลิเคชันแบบครบวงจรตั้งแต่ส่วนติดต่อผู้ใช้จนถึงบริการฝั่งเซิร์ฟเวอร์',
+                'พัฒนา API ที่ดูแลรักษาได้ง่ายและสนับสนุนขั้นตอนการ deploy ให้เสถียรในระบบจริง',
+                'ทำงานร่วมกับทีมข้ามสายงานได้ดีและปรับตัวตามความต้องการของโครงการได้อย่างรวดเร็ว'
+            ]
+        };
+
+        const profileImageSrc = document.querySelector('img[alt="Profile picture"]')?.getAttribute('src') || '/images/profile-avatar.png';
 
         return {
             name,
@@ -237,12 +268,32 @@ import Layout from '../layouts/Layout.astro';
             about,
             skillItems,
             experienceItems,
-            labels: labels[lang]
+            labels: labels[lang],
+            formalHighlights: formalHighlights[lang],
+            profileImageSrc
         };
     };
 
-    const createCvElement = (lang) => {
+    const resolveImageAsDataUrl = async (src) => {
+        if (!src) return '';
+
+        try {
+            const response = await fetch(src);
+            const blob = await response.blob();
+
+            return await new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(typeof reader.result === 'string' ? reader.result : '');
+                reader.readAsDataURL(blob);
+            });
+        } catch {
+            return src;
+        }
+    };
+
+    const createCvElement = async (lang) => {
         const data = buildCvData(lang);
+        const imageDataUrl = await resolveImageAsDataUrl(data.profileImageSrc);
         const container = document.createElement('div');
 
         container.style.position = 'fixed';
@@ -258,23 +309,39 @@ import Layout from '../layouts/Layout.astro';
         container.style.zIndex = '-1';
 
         container.innerHTML = `
-            <h1 style="margin:0 0 6px 0;font-size:28px;color:#111827;">${escapeHtml(data.name)}</h1>
-            <p style="margin:0 0 20px 0;color:#1e40af;font-size:16px;">${escapeHtml(data.role)}</p>
+            <div style="display:flex;align-items:flex-start;gap:20px;margin-bottom:18px;">
+                <img src="${escapeHtml(imageDataUrl)}" alt="Profile" style="width:92px;height:92px;border-radius:10px;object-fit:cover;border:2px solid #1d4ed8;" />
+                <div>
+                    <h1 style="margin:0 0 4px 0;font-size:28px;color:#111827;">${escapeHtml(data.name)}</h1>
+                    <p style="margin:0 0 4px 0;color:#1e40af;font-size:16px;font-weight:600;">${escapeHtml(data.role)}</p>
+                    <p style="margin:0;color:#374151;font-size:13px;">${escapeHtml(data.labels.title)}</p>
+                </div>
+            </div>
 
-            <h2 style="margin:0 0 8px 0;font-size:18px;color:#1f2937;">${escapeHtml(data.labels.summary)}</h2>
-            <p style="margin:0 0 16px 0;">${escapeHtml(data.summary)}</p>
+            <h2 style="margin:0 0 8px 0;font-size:18px;color:#1f2937;">${escapeHtml(data.labels.profile)}</h2>
+            <p style="margin:0 0 14px 0;">${escapeHtml(data.about)}</p>
 
-            <h2 style="margin:0 0 8px 0;font-size:18px;color:#1f2937;">${escapeHtml(data.labels.about)}</h2>
-            <p style="margin:0 0 16px 0;">${escapeHtml(data.about)}</p>
+            <h2 style="margin:0 0 8px 0;font-size:18px;color:#1f2937;">${escapeHtml(data.labels.professionalSummary)}</h2>
+            <p style="margin:0 0 14px 0;">${escapeHtml(data.summary)}</p>
 
-            <h2 style="margin:0 0 8px 0;font-size:18px;color:#1f2937;">${escapeHtml(data.labels.skills)}</h2>
+            <h2 style="margin:0 0 8px 0;font-size:18px;color:#1f2937;">${escapeHtml(data.labels.coreCompetencies)}</h2>
             <ul style="margin:0 0 16px 20px;padding:0;">
                 ${data.skillItems.map((item) => `<li style="margin:0 0 6px 0;">${escapeHtml(item)}</li>`).join('')}
             </ul>
 
             <h2 style="margin:0 0 8px 0;font-size:18px;color:#1f2937;">${escapeHtml(data.labels.experience)}</h2>
             <ul style="margin:0 0 16px 20px;padding:0;">
-                ${data.experienceItems.map((item) => `<li style="margin:0 0 8px 0;">${escapeHtml(item)}</li>`).join('')}
+                ${data.experienceItems
+                    .map(
+                        (item) =>
+                            `<li style="margin:0 0 10px 0;"><strong>${escapeHtml(item.title)}</strong><br/><span style="color:#374151;">${escapeHtml(item.period)}</span><br/>${escapeHtml(item.details)}</li>`
+                    )
+                    .join('')}
+            </ul>
+
+            <h2 style="margin:0 0 8px 0;font-size:18px;color:#1f2937;">${escapeHtml(data.labels.additional)}</h2>
+            <ul style="margin:0 0 0 20px;padding:0;">
+                ${data.formalHighlights.map((item) => `<li style="margin:0 0 6px 0;">${escapeHtml(item)}</li>`).join('')}
             </ul>
         `;
 
@@ -283,11 +350,13 @@ import Layout from '../layouts/Layout.astro';
     };
 
     const exportCvPdf = async (lang) => {
-        const container = createCvElement(lang);
+        const container = await createCvElement(lang);
+
         const canvas = await html2canvas(container, {
             scale: 2,
             useCORS: true,
-            backgroundColor: '#ffffff'
+            backgroundColor: '#ffffff',
+            allowTaint: true
         });
 
         document.body.removeChild(container);
