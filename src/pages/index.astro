@@ -4,13 +4,9 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Nithisaran | Full Stack Developer">
     <section class="tui-window">
-        <div class="tui-titlebar">
+        <div class="tui-titlebar flex-wrap">
             <p class="inline-flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-                    <path d="m7 9 3 3-3 3"></path>
-                    <path d="M13 15h4"></path>
-                </svg>
+                <i class="fa-solid fa-terminal" aria-hidden="true"></i>
                 portfolio.sh
             </p>
             <p class="text-blue-300">
@@ -72,15 +68,15 @@ import Layout from '../layouts/Layout.astro';
                 <p class="mb-3 font-mono text-sm text-blue-300">$ ls skills/</p>
                 <div class="grid gap-3 sm:grid-cols-2">
                     <p class="inline-flex items-center gap-2">
-                        <span aria-hidden="true">🖥️</span>
+                        <i class="fa-solid fa-display" aria-hidden="true"></i>
                         <span><span class="tui-kbd">Frontend</span> React, Angular, Astro, Tailwind CSS</span>
                     </p>
                     <p class="inline-flex items-center gap-2">
-                        <span aria-hidden="true">⚙️</span>
+                        <i class="fa-solid fa-gears" aria-hidden="true"></i>
                         <span><span class="tui-kbd">Backend</span> Django, Spring Boot, REST APIs</span>
                     </p>
                     <p class="inline-flex items-center gap-2">
-                        <span aria-hidden="true">☁️</span>
+                        <i class="fa-solid fa-cloud" aria-hidden="true"></i>
                         <span>
                         <span class="tui-kbd lang-en">Cloud DB</span>
                         <span class="tui-kbd lang-th">ฐานข้อมูลคลาวด์</span>
@@ -88,7 +84,7 @@ import Layout from '../layouts/Layout.astro';
                         </span>
                     </p>
                     <p class="inline-flex items-center gap-2">
-                        <span aria-hidden="true">🐧</span>
+                        <i class="fa-brands fa-linux" aria-hidden="true"></i>
                         <span>
                         <span class="tui-kbd lang-en">Tools</span>
                         <span class="tui-kbd lang-th">เครื่องมือ</span>
@@ -142,29 +138,18 @@ import Layout from '../layouts/Layout.astro';
                     <span class="lang-en"><del>Open to full-time, freelance, and contract opportunities.</del> <strong>Hired.</strong></span>
                     <span class="lang-th"><del>เปิดรับงานประจำ งานฟรีแลนซ์ และงานแบบสัญญาจ้าง</del> <strong>ได้งานแล้ว</strong></span>
                 </p>
-                <div class="mt-3 flex flex-wrap gap-3">
-                    <a href="mailto:nithisaran1999@gmail.com" class="btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                            <path d="m3 7 9 6 9-6"></path>
-                        </svg>
+                <div class="mt-3 flex flex-col sm:flex-row flex-wrap gap-3">
+                    <a href="mailto:nithisaran1999@gmail.com" class="btn w-full sm:w-auto">
+                        <i class="fa-regular fa-envelope" aria-hidden="true"></i>
                         <span class="lang-en">Send Email</span>
                         <span class="lang-th">ส่งอีเมล</span>
                     </a>
-                    <button id="downloadCvEnBtn" type="button" class="btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M12 3v12"></path>
-                            <path d="m7 10 5 5 5-5"></path>
-                            <path d="M5 21h14"></path>
-                        </svg>
+                    <button id="downloadCvEnBtn" type="button" class="btn w-full sm:w-auto">
+                        <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i>
                         <span>Download CV EN</span>
                     </button>
-                    <button id="downloadCvThBtn" type="button" class="btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M12 3v12"></path>
-                            <path d="m7 10 5 5 5-5"></path>
-                            <path d="M5 21h14"></path>
-                        </svg>
+                    <button id="downloadCvThBtn" type="button" class="btn w-full sm:w-auto">
+                        <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i>
                         <span>ดาวน์โหลด CV TH</span>
                     </button>
                 </div>
